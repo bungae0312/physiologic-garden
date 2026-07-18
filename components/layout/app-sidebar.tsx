@@ -1,5 +1,8 @@
+"use client";
+
 import { FileText, Moon, Search, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSearchModal } from "@/components/garden/search-modal-provider";
 import {
   Sidebar,
   SidebarContent,
@@ -63,6 +66,8 @@ const NAV_TREE = [
 ] as const;
 
 export function AppSidebar() {
+  const { setOpen } = useSearchModal();
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="gap-3 py-3">
@@ -76,11 +81,12 @@ export function AppSidebar() {
           </span>
         </div>
 
-        {/* Search Button — 팔레트를 여는 자리만, 실제 검색은 아직 없다 */}
+        {/* Search Button — 헤더/홈페이지 검색 버튼과 같은 팔레트를 연다 */}
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Search"
+              onClick={() => setOpen(true)}
               className="border border-sidebar-border text-muted-foreground transition-colors duration-150 hover:border-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-foreground"
             >
               <Search className="size-4 shrink-0" />

@@ -4,6 +4,7 @@ import { Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SearchModalProvider } from "@/components/garden/search-modal-provider";
 
 const pretendard = localFont({
   src: "../node_modules/pretendard/dist/web/variable/woff2/PretendardVariable.woff2",
@@ -38,7 +39,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased">
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          <SearchModalProvider>{children}</SearchModalProvider>
+        </TooltipProvider>
       </body>
     </html>
   );

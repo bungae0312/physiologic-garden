@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArticleCard } from "@/components/garden/article-card";
+import { HeroSearchButton } from "@/components/garden/hero-search-button";
 
 /**
  * Documentation Homepage.
@@ -102,20 +102,10 @@ export default function GardenHome() {
         </p>
 
         {/*
-          입력창이 아니라 팔레트를 여는 버튼이다 — 헤더의 검색 트리거, 사이드바의
-          검색 진입점(docs/06)과 같은 팔레트를 여는 세 번째 진입점일 뿐, 검색 로직을
-          여기 따로 두지 않는다. 아직 팔레트 자체가 없어 지금은 시각적 자리만 잡는다.
+          헤더의 검색 트리거, 사이드바의 검색 진입점(docs/06)과 같은 팔레트를
+          여는 세 번째 진입점 — 검색 로직은 SearchModal 하나에만 있다.
         */}
-        <button
-          type="button"
-          className="mt-8 flex h-12 w-full items-center gap-3 rounded-lg border border-border bg-card px-4 text-left text-muted-foreground transition-colors hover:border-foreground/20"
-        >
-          <Search className="size-4 shrink-0" aria-hidden />
-          <span className="flex-1 text-base">노트, 태그, 개념 검색…</span>
-          <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-xs">
-            ⌘K
-          </kbd>
-        </button>
+        <HeroSearchButton />
       </section>
 
       {/* Category Cards */}
