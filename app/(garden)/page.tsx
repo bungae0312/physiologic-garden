@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { ArticleCard } from "@/components/garden/article-card";
 
 /**
  * Documentation Homepage.
@@ -88,12 +89,6 @@ const RECENTLY_UPDATED = [
   { title: "근막통증증후군 트리거포인트 지도", updatedAt: "1주 전" },
 ] as const;
 
-const GROWTH_LABEL: Record<string, string> = {
-  seedling: "🌱 seedling",
-  budding: "🌿 budding",
-  evergreen: "🌳 evergreen",
-};
-
 export default function GardenHome() {
   return (
     <div className="mx-auto w-full max-w-6xl space-y-16 px-6 py-12 sm:space-y-20 sm:px-10 sm:py-16">
@@ -166,36 +161,15 @@ export default function GardenHome() {
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {RECENT_ARTICLES.map((article) => (
-            <Card
+            <ArticleCard
               key={article.title}
-              className="border-border transition-colors hover:border-foreground/20"
-            >
-              <CardContent className="px-5">
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <span className="size-1.5 rounded-full bg-primary" aria-hidden />
-                  {article.category}
-                </div>
-                <h3 className="mt-2 line-clamp-1 font-semibold text-foreground">
-                  {article.title}
-                </h3>
-                <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">
-                  {article.excerpt}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-1.5">
-                  {article.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="font-normal">
-                      #{tag}
-                    </Badge>
-                  ))}
-                  <Badge className="border-transparent bg-success/15 font-normal text-success">
-                    {GROWTH_LABEL[article.growth]}
-                  </Badge>
-                  <span className="ml-auto text-xs text-muted-foreground">
-                    {article.updatedAt}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+              category={article.category}
+              title={article.title}
+              excerpt={article.excerpt}
+              tags={[...article.tags]}
+              growth={article.growth}
+              updatedAt={article.updatedAt}
+            />
           ))}
         </div>
       </section>

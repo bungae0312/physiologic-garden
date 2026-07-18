@@ -83,7 +83,7 @@ export default function AclRehabProtocolPage() {
           <ArticleHeader
             breadcrumb={[
               { label: "Orthopedic PT", href: "#" },
-              { label: "Knee", href: "#" },
+              { label: "Knee", href: "/categories/knee" },
               { label: "ACL Reconstruction Rehabilitation Protocol" },
             ]}
             title="ACL Reconstruction Rehabilitation Protocol"
