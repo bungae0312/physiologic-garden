@@ -1,81 +1,164 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+/*
+  ---break---
+*/
+@custom-variant dark (&:is(.dark *));
 
 /*
-  디자인 시스템 문서(docs/02-design-system.md) §4~6의 토큰을 그대로 구현한다.
-  :root/.dark 에 실제 값을 두고, @theme inline 에서 재노출해
-  bg-base / text-primary 같은 유틸리티 클래스를 라이트·다크 양쪽에서 그대로 쓸 수 있게 한다.
+  디자인 시스템 문서(docs/02-design-system.md) §4~6의 토큰을 shadcn/ui의
+  CSS 변수 체계(--background, --primary, --sidebar-* 등) 위에 그대로 구현한다.
+
+  이름은 shadcn 컨벤션을 따르지만 값은 전부 우리 팔레트다:
+  - shadcn의 "primary" = 우리 문서의 "accent"(틸) — 브랜드 강조색
+  - shadcn의 "accent"  = 브랜드색이 아니라 hover/highlight용 중립 배경(문서의 hover 톤)
+  이 둘은 이름이 겹치지만 의미가 다르므로 혼동하지 않는다.
 */
 
 :root {
-  --color-bg-base: oklch(98.5% 0.002 260);
-  --color-bg-raised: oklch(96.5% 0.003 260);
-  --color-bg-overlay: oklch(100% 0 0);
+  --background: oklch(98.5% 0.002 260);
+  --foreground: oklch(22% 0.01 260);
 
-  --color-text-primary: oklch(22% 0.01 260);
-  --color-text-secondary: oklch(45% 0.012 260);
-  --color-text-tertiary: oklch(60% 0.01 260);
+  --card: oklch(96.5% 0.003 260);
+  --card-foreground: oklch(22% 0.01 260);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(22% 0.01 260);
 
-  --color-border-subtle: oklch(91% 0.004 260);
-  --color-border-default: oklch(83% 0.006 260);
+  --primary: oklch(62% 0.11 200);
+  --primary-foreground: oklch(99% 0 0);
 
-  --color-accent: oklch(62% 0.11 200);
-  --color-accent-subtle: oklch(93% 0.04 200);
-  --color-accent-foreground: oklch(99% 0 0);
+  --secondary: oklch(96.5% 0.003 260);
+  --secondary-foreground: oklch(22% 0.01 260);
 
-  --color-info: oklch(62% 0.11 240);
-  --color-success: oklch(65% 0.13 150);
-  --color-warning: oklch(75% 0.14 80);
-  --color-danger: oklch(58% 0.19 25);
+  --muted: oklch(96.5% 0.003 260);
+  --muted-foreground: oklch(45% 0.012 260);
+
+  /* hover/highlight 전용 중립 톤 (브랜드 accent 아님) */
+  --accent: oklch(94% 0.004 260);
+  --accent-foreground: oklch(22% 0.01 260);
+
+  --destructive: oklch(58% 0.19 25);
+
+  --border: oklch(83% 0.006 260);
+  --input: oklch(83% 0.006 260);
+  --ring: oklch(62% 0.11 200);
+
+  --radius: 0.5rem;
+
+  /* 사이드바는 콘텐츠와 같은 배경 + 보더 하나로만 구분한다 (원칙 4: 절제된 밀도) */
+  --sidebar: oklch(98.5% 0.002 260);
+  --sidebar-foreground: oklch(22% 0.01 260);
+  --sidebar-primary: oklch(62% 0.11 200);
+  --sidebar-primary-foreground: oklch(99% 0 0);
+  --sidebar-accent: oklch(94% 0.004 260);
+  --sidebar-accent-foreground: oklch(22% 0.01 260);
+  --sidebar-border: oklch(91% 0.004 260);
+  --sidebar-ring: oklch(62% 0.11 200);
+
+  /* Callout 등에서 쓸 시맨틱 색 — shadcn 기본 팔레트에는 없는 확장 토큰 */
+  --info: oklch(62% 0.11 240);
+  --success: oklch(65% 0.13 150);
+  --warning: oklch(75% 0.14 80);
 }
 
 .dark {
-  --color-bg-base: oklch(16% 0.006 260);
-  --color-bg-raised: oklch(20% 0.007 260);
-  --color-bg-overlay: oklch(24% 0.008 260);
+  --background: oklch(16% 0.006 260);
+  --foreground: oklch(95% 0.004 260);
 
-  --color-text-primary: oklch(95% 0.004 260);
-  --color-text-secondary: oklch(76% 0.008 260);
-  --color-text-tertiary: oklch(56% 0.01 260);
+  --card: oklch(20% 0.007 260);
+  --card-foreground: oklch(95% 0.004 260);
+  --popover: oklch(24% 0.008 260);
+  --popover-foreground: oklch(95% 0.004 260);
 
-  --color-border-subtle: oklch(27% 0.008 260);
-  --color-border-default: oklch(34% 0.01 260);
+  --primary: oklch(72% 0.12 200);
+  --primary-foreground: oklch(12% 0 0);
 
-  --color-accent: oklch(72% 0.12 200);
-  --color-accent-subtle: oklch(28% 0.055 200);
-  --color-accent-foreground: oklch(12% 0 0);
+  --secondary: oklch(20% 0.007 260);
+  --secondary-foreground: oklch(95% 0.004 260);
 
-  --color-info: oklch(70% 0.11 240);
-  --color-success: oklch(72% 0.13 150);
-  --color-warning: oklch(80% 0.14 80);
-  --color-danger: oklch(68% 0.18 25);
+  --muted: oklch(20% 0.007 260);
+  --muted-foreground: oklch(76% 0.008 260);
+
+  --accent: oklch(26% 0.008 260);
+  --accent-foreground: oklch(95% 0.004 260);
+
+  --destructive: oklch(68% 0.18 25);
+
+  --border: oklch(34% 0.01 260);
+  --input: oklch(34% 0.01 260);
+  --ring: oklch(72% 0.12 200);
+
+  --sidebar: oklch(16% 0.006 260);
+  --sidebar-foreground: oklch(95% 0.004 260);
+  --sidebar-primary: oklch(72% 0.12 200);
+  --sidebar-primary-foreground: oklch(12% 0 0);
+  --sidebar-accent: oklch(26% 0.008 260);
+  --sidebar-accent-foreground: oklch(95% 0.004 260);
+  --sidebar-border: oklch(27% 0.008 260);
+  --sidebar-ring: oklch(72% 0.12 200);
+
+  --info: oklch(70% 0.11 240);
+  --success: oklch(72% 0.13 150);
+  --warning: oklch(80% 0.14 80);
 }
 
 @theme inline {
-  --color-bg-base: var(--color-bg-base);
-  --color-bg-raised: var(--color-bg-raised);
-  --color-bg-overlay: var(--color-bg-overlay);
-
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-tertiary: var(--color-text-tertiary);
-
-  --color-border-subtle: var(--color-border-subtle);
-  --color-border-default: var(--color-border-default);
-
-  --color-accent: var(--color-accent);
-  --color-accent-subtle: var(--color-accent-subtle);
-  --color-accent-foreground: var(--color-accent-foreground);
-
-  --color-info: var(--color-info);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-danger: var(--color-danger);
-
-  --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
-}
 
-body {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-primary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-info: var(--info);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+/*
+  ---break---
+*/
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
