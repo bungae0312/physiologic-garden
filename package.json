@@ -1,0 +1,11 @@
+{
+  "name": "cardnews-sample-minimal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:cards": "node scripts/generate-cards.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}
